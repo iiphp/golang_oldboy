@@ -30,7 +30,18 @@ func foo(input interface{}) {
 	}
 }
 
+// 反射方法，获取变量的值，转成普通变量
+func val(input interface{}) {
+	v := reflect.ValueOf(input)
+	fmt.Println(v, reflect.TypeOf(v))
+	x := v.Int()
+	fmt.Println(x, reflect.TypeOf(x))
+}
+
 func main() {
 	std := Student{Name:"Tom", Age:21}
 	foo(std)
+
+	i := 10
+	val(i)
 }
