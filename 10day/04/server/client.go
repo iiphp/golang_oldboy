@@ -177,6 +177,7 @@ func (this *client) register(msg proto.Message) (err error)  {
 	}
 
 	fmt.Println("register receive user is:", regCmd.User)
+	err = userMgr.Register(&regCmd.User)
 
 	// Todo 记录到 Redis
 	return

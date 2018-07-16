@@ -4,10 +4,25 @@ import (
 	"net"
 	"fmt"
 	"io"
+	"time"
+	"github.com/gomodule/redigo/redis"
+	"golang_oldboy/10day/04/model"
+)
+
+var (
+	pool    *redis.Pool
+	userMgr *model.UserMgr
 )
 
 func main()  {
-	 doServer("0.0.0.0:8888")
+	pool = initRedis("localhost:6379", 8, 32, time.Second*300)
+	userMgr = initUserMgr(pool)
+	doServer("0.0.0.0:8888")
+}
+
+func initUserMgr(pool *redis.Pool) (*model.UserMgr) {
+	mgr := model.NewUserMgr(pool)
+	return mgr
 }
 
 func doServer(addr string) (err error) {

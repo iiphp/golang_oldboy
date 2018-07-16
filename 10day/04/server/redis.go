@@ -5,9 +5,7 @@ import (
 	"time"
 )
 
-var pool *redis.Pool
-
-func initRedis(addr string, maxIdleConn, maxActiveConn int, idleTimeout time.Duration) {
+func initRedis(addr string, maxIdleConn, maxActiveConn int, idleTimeout time.Duration) (*redis.Pool) {
 	pool = &redis.Pool{
 		MaxIdle: maxIdleConn,
 		MaxActive:maxActiveConn,
@@ -16,12 +14,5 @@ func initRedis(addr string, maxIdleConn, maxActiveConn int, idleTimeout time.Dur
 			return redis.Dial("tcp", addr)
 		},
 	}
-}
-
-func GetConn() redis.Conn {
-	return pool.Get()
-}
-
-func PutConn(conn redis.Conn) {
-	conn.Close()
+	return pool
 }

@@ -7,4 +7,5 @@ var (
 	ErrNameIsNotExist   = errors.New("用户不存在")
 	ErrNameIsExist      = errors.New("用户已存在")
 	ErrMethodIsNotExist = errors.New("方法不存在")
+	ErrUserIsNil        = errors.New("用户是空值")
 )
